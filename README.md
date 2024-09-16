@@ -7,14 +7,10 @@ In this project, we create program for Laboratory in a company. The program will
 
 This program meets the CRUD criteria described as follows.
 
-- Create
-  Admin as User able to add new tools and add new user (Admin or/and Member).
+- Create  = Admin as User able to add new tools and add new user (Admin or/and Member).
 
-- Read
-  Admin and Members able to show tools list. In addition, Admin able to show Members list.
+- Read    = Admin and Members able to show tools list. In addition, Admin able to show Members list.
 
-- Update
-  Admin able to updating quantity of the tools that available. Also, the program will show updated list of the tools after Members borrow some tools.
+- Update  = Admin able to updating quantity of the tools that available. Also, the program will show updated list of the tools after Members borrow some tools.
 
-- Delete
-  Admin able to delete tools also members.
+- Delete  = Admin able to delete tools also members.
