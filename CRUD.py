@@ -88,8 +88,7 @@ def edit_alat():
         elif menu_edit_alat == '2':
             nama_alat = input('Masukkan Nama alat baru: ')
             try:
-                qty = int(input('Masukkan Jumlah Qty Alat Baru: '))
-                tambah_alat(nama_alat, qty)
+                tambah_alat(nama_alat)
             except ValueError:
                 print('Input tidak valid. Masukkan angka yang benar.')
         elif menu_edit_alat == '3':
@@ -114,11 +113,11 @@ def update_alat(no_alat,perubahan_qty):
             return
     print("No Alat tidak ditemukan.")
 
-def tambah_alat(nama_alat, qty):
-    tampilkan_alat()
+def tambah_alat(nama_alat):
     if any(alat['Nama Alat'].lower() == nama_alat.lower() for alat in barang_dict):
         print("Alat dengan nama ini sudah ada dalam list.")
         return
+    qty = int(input('Masukkan Jumlah Qty Alat Baru: '))
     no_baru = max(alat['No'] for alat in barang_dict) + 1 if barang_dict else 1
     status = 'Tersedia' if qty > 0 else 'Habis'
     barang_dict.append({'No': no_baru, 'Nama Alat': nama_alat, 'Qty': qty, 'Status': status})
@@ -130,7 +129,7 @@ def hapus_alat(no_alat):
     barang_dict = [alat for alat in barang_dict if alat['No'] != no_alat]
     for index, alat in enumerate(barang_dict, start=1):
         alat['No'] = index
-        print('Alat telah dihapus dan nomor alat diperbarui.')
+    print('Alat telah dihapus dan nomor alat diperbarui.')
     tampilkan_alat()
  
 def tampilkan_anggota():
@@ -172,13 +171,12 @@ def tambah_anggota(username):
     
 def hapus_anggota(username):
     global login_data
-    if username == login_data[2]:
+    if any(user['Username'] == username for user in login_data):
         login_data = [user for user in login_data if user['Username'] != username]
-        print('Anggota telah di hapus.')
-    else: print('Username tidak terdaftar.')
-
+        print('Anggota telah dihapus.')
+    else:
+        print('Username tidak terdaftar.')
     
-
 def menu_anggota():
     while True:
         print('Selamat datang di Panel Anggota!\n1. List Alat\n2. Pinjam Alat\n3. Keluar')
@@ -205,11 +203,12 @@ def pinjam_alat():
     try:
         no_alat = int(input('Nomor Alat: '))
         sewa_qty = int(input('Jumlah Qty: '))
-        sewa_alat(no_alat, sewa_qty)
+        sewa_alat(no_alat,sewa_qty)
     except ValueError:
         print('Input tidak valid. Masukkan angka yang benar.')
 
-def sewa_alat(no_alat, sewa_qty):
+
+def sewa_alat(no_alat,sewa_qty):
     for alat in barang_dict:
         if alat['No'] == no_alat:
             if alat['Status'] == 'Habis':
@@ -222,6 +221,4 @@ def sewa_alat(no_alat, sewa_qty):
                 print(f"Jumlah alat yang tersedia tidak cukup. Sisa: {alat['Qty']}.")
             return
     print("No Alat tidak ditemukan.")
-
-
 main()
